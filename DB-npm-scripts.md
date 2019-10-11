@@ -146,7 +146,7 @@ exports.down = function(knex) {
 };
 ```
 
-## `mkdir routes` _This will create a Directory for routes_
+`mkdir routes` _This will create a Directory for routes_
 
 `touch routes/projectRoutes.js routes/projectModel.js`
 _This will create the files to start your routes and models_
