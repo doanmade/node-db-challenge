@@ -71,26 +71,76 @@ module.exports = db;
 ##### here is some basic code for the index.js
 
 ```
+const server = require('./server.js');
 
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}...`);
+});
 ```
 
 ##### here is some basic code for the server.js
 
 ```
+const express = require("express");
 
+const ProjectsRouter = require("./routes/projectRoutes.js");
+// const ResourcesRouter = require("./routes/resourcesRoutes.js");
+// const TasksRouter = require("./routes/taskRoutes.js");
+
+const server = express();
+
+server.use(express.json());
+server.use("/api/projects", ProjectsRouter);
+// server.use("/api/resources", ResourcesRouter);
+// server.use("/api/task", TasksRouter);
+
+module.exports = server;
 ```
 
 ### Creating the .DB3
 
-`npx knex migrate:make bootstrap`
+`npx knex migrate:make *filename*`
 _This will create the migrations folder in data (because thats where we told it to create it in the knexfile.js)_
+
+###### Single Table
 
 ```
 exports.up = function(knex) {
-  return knex.schema.createTable('tableName', tbl => {
+  return knex.schema
+  .createTable("resources", tbl => {
     tbl.increments();
+    tbl.string("name").notNullable();
+    tbl.string("description").notNullable();
+  });
+};
 
-  })
+exports.down = function(knex) {
 
 };
 ```
+
+###### Multi Table
+
+```
+
+exports.up = function(knex) {
+  return knex.schema
+  .createTable("resources", tbl => {
+    tbl.increments();
+    tbl.string("name").notNullable();
+    tbl.string("description").notNullable();
+  })
+  .createTable("projects", tbl => {})
+  .createTable("task", tbl => {});
+
+};
+
+exports.down = function(knex) {
+
+};
+```
+
+`mkdir routes`
+`touch routes/projectRoutes.js routes/projectModel.js`
