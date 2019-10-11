@@ -103,6 +103,10 @@ module.exports = server;
 
 `npx knex migrate:make *filename*`
 _This will create the migrations folder in data (because thats where we told it to create it in the knexfile.js)_
+_This is where we will build out our tables_
+`npx knex seed:make *filename*`
+_This will create the seeds folder in data (because thats where we told it to create it in the knexfile.js)_
+_This is where will build out our starting data_
 
 ###### Single Table
 
@@ -142,5 +146,7 @@ exports.down = function(knex) {
 };
 ```
 
-`mkdir routes`
+## `mkdir routes` _This will create a Directory for routes_
+
 `touch routes/projectRoutes.js routes/projectModel.js`
+_This will create the files to start your routes and models_
